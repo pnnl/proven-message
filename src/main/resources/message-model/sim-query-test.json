@@ -1,0 +1,11 @@
+{
+  "queryMeasurement": "simulation",
+  "queryType": "time-series", 
+  "queryFilter": {
+    "hasSimulationId": "12ae2345",
+    "hasSimulationMessageType": "INPUT",
+    "hasMrid": "123a456b-789c-012d-345e-678f901a234b",
+    "startTime": "2018-01-08T13:06:00.000Z",
+    "endTime": "2018-01-08T13:07:00.000Z"
+  }
+}

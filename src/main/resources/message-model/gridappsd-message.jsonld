@@ -1,0 +1,204 @@
+{
+  "@graph" : [ {
+    "@id" : "_:b0",
+    "@type" : "owl:Restriction",
+    "maxCardinality" : "1",
+    "onProperty" : "gdm:hasMrid"
+  }, {
+    "@id" : "_:b1",
+    "@type" : "owl:Restriction",
+    "cardinality" : "1",
+    "onProperty" : "gdm:hasSimulationId"
+  }, {
+    "@id" : "_:b2",
+    "@type" : "owl:Restriction",
+    "cardinality" : "1",
+    "onProperty" : "gdm:hasDifferenceAttribute"
+  }, {
+    "@id" : "_:b3",
+    "@type" : "owl:Restriction",
+    "maxCardinality" : "1",
+    "onProperty" : "gdm:hasMrid"
+  }, {
+    "@id" : "_:b5",
+    "@type" : "owl:Restriction",
+    "minCardinality" : "1",
+    "onProperty" : "http://proven.pnnl.gov/proven-message#hasMeasurementMessage"
+  }, {
+    "@id" : "http://proven.pnnl.gov/gridappsd-message",
+    "@type" : "owl:Ontology",
+    "http://spinrdf.org/spin#imports" : [ {
+      "@id" : "http://topbraid.org/spin/spinowl"
+    }, {
+      "@id" : "http://topbraid.org/spin/owlrl-all"
+    } ],
+    "imports" : "http://proven.pnnl.gov/proven-message",
+    "versionInfo" : [ "0.1", "Created with TopBraid Composer" ]
+  }, {
+    "@id" : "gdm:ForwardDifference",
+    "@type" : "owl:Class",
+    "comment" : "Represents a forward model difference used by CIM messaging.",
+    "label" : "Forward difference",
+    "subClassOf" : "gdm:ModelDifference"
+  }, {
+    "@id" : "gdm:ModelDifference",
+    "@type" : "owl:Class",
+    "comment" : "Represents a CIM model difference.",
+    "label" : "Model difference",
+    "subClassOf" : [ "http://proven.pnnl.gov/proven-message#Measurement", "_:b0", "_:b2", "owl:Thing" ],
+    "owl:hasKey" : {
+      "@list" : [ ]
+    }
+  }, {
+    "@id" : "gdm:ReverseDifference",
+    "@type" : "owl:Class",
+    "comment" : "Represents a reverse model difference used by CIM messaging",
+    "label" : "Reverse difference",
+    "subClassOf" : "gdm:ModelDifference"
+  }, {
+    "@id" : "gdm:SimulationInput",
+    "@type" : "owl:Class",
+    "comment" : "Represents a Gridapps-D model simulation input message",
+    "label" : "Simulation input",
+    "subClassOf" : "gdm:SimulationMessage"
+  }, {
+    "@id" : "gdm:SimulationMessage",
+    "@type" : "owl:Class",
+    "comment" : "Represents a Gridapps-D model simulation message",
+    "label" : "Simulation",
+    "subClassOf" : [ "http://proven.pnnl.gov/proven-message#ProvenMessage", "_:b5", "owl:Thing", "_:b1" ],
+    "hasKey" : {
+      "@list" : [ "gdm:hasSimulationId" ]
+    }
+  }, {
+    "@id" : "gdm:SimulationOutput",
+    "@type" : "owl:Class",
+    "comment" : "Represents a Gridapps-D model simulation output message",
+    "label" : "Simulation output",
+    "subClassOf" : "gdm:SimulationMessage"
+  }, {
+    "@id" : "gdm:hasAngle",
+    "@type" : "owl:DatatypeProperty",
+    "comment" : "Associates an angle measurement value with simulation output mesage",
+    "label" : "Has angle",
+    "subPropertyOf" : "http://proven.pnnl.gov/proven-message#hasValue"
+  }, {
+    "@id" : "gdm:hasDifference",
+    "@type" : "owl:ObjectProperty",
+    "comment" : "Associates a MeasurementMessage with a model difference measurement",
+    "domain" : "http://proven.pnnl.gov/proven-message#MeasurementMessage",
+    "label" : "Has difference",
+    "range" : "gdm:ModelDifference",
+    "subPropertyOf" : "http://proven.pnnl.gov/proven-message#hasMeasurement"
+  }, {
+    "@id" : "gdm:hasDifferenceAttribute",
+    "@type" : "owl:DatatypeProperty",
+    "comment" : "Identifies CIM attribute value",
+    "domain" : "gdm:ModelDifference",
+    "label" : "Has difference attribute",
+    "range" : "xsd:string",
+    "subPropertyOf" : "http://proven.pnnl.gov/proven-message#hasTag"
+  }, {
+    "@id" : "gdm:hasForwardDifference",
+    "@type" : "owl:ObjectProperty",
+    "comment" : "Associates a MeasurementMessage with a forward model difference measurement",
+    "domain" : "http://proven.pnnl.gov/proven-message#MeasurementMessage",
+    "label" : "Has forward difference",
+    "range" : "gdm:ForwardDifference",
+    "subPropertyOf" : "gdm:hasDifference"
+  }, {
+    "@id" : "gdm:hasMagnitude",
+    "@type" : "owl:DatatypeProperty",
+    "comment" : "Associates a magnitude measurement value with a simulation output mesage",
+    "label" : "Has magnitude",
+    "subPropertyOf" : "http://proven.pnnl.gov/proven-message#hasValue"
+  }, {
+    "@id" : "gdm:hasMrid",
+    "@type" : "owl:DatatypeProperty",
+    "comment" : "Associates a CIM MRid with a Measurement",
+    "label" : "CIM MRid",
+    "range" : "xsd:string"
+  }, {
+    "@id" : "gdm:hasReverseDifference",
+    "@type" : "owl:ObjectProperty",
+    "comment" : "Associates a MeasurementMessage with a reverse model difference measurement",
+    "domain" : "http://proven.pnnl.gov/proven-message#MeasurementMessage",
+    "label" : "Has reverse difference",
+    "range" : "gdm:ReverseDifference",
+    "subPropertyOf" : "gdm:hasDifference"
+  }, {
+    "@id" : "gdm:hasSimulationId",
+    "@type" : "owl:DatatypeProperty",
+    "comment" : "Identifies associated simulation for a SimulationMessage",
+    "domain" : "gdm:SimulationMessage",
+    "label" : "Has simulation identifier",
+    "range" : "xsd:string"
+  }, {
+    "@id" : "http://proven.pnnl.gov/proven-message#MeasurementMessage",
+    "subClassOf" : "_:b3"
+  } ],
+  "@context" : {
+    "onProperty" : {
+      "@id" : "http://www.w3.org/2002/07/owl#onProperty",
+      "@type" : "@id"
+    },
+    "maxCardinality" : {
+      "@id" : "http://www.w3.org/2002/07/owl#maxCardinality",
+      "@type" : "http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+    },
+    "subPropertyOf" : {
+      "@id" : "http://www.w3.org/2000/01/rdf-schema#subPropertyOf",
+      "@type" : "@id"
+    },
+    "range" : {
+      "@id" : "http://www.w3.org/2000/01/rdf-schema#range",
+      "@type" : "@id"
+    },
+    "label" : {
+      "@id" : "http://www.w3.org/2000/01/rdf-schema#label"
+    },
+    "domain" : {
+      "@id" : "http://www.w3.org/2000/01/rdf-schema#domain",
+      "@type" : "@id"
+    },
+    "comment" : {
+      "@id" : "http://www.w3.org/2000/01/rdf-schema#comment"
+    },
+    "cardinality" : {
+      "@id" : "http://www.w3.org/2002/07/owl#cardinality",
+      "@type" : "http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+    },
+    "subClassOf" : {
+      "@id" : "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+      "@type" : "@id"
+    },
+    "versionInfo" : {
+      "@id" : "http://www.w3.org/2002/07/owl#versionInfo"
+    },
+    "imports" : {
+      "@id" : "http://www.w3.org/2002/07/owl#imports",
+      "@type" : "@id"
+    },
+    "rest" : {
+      "@id" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest",
+      "@type" : "@id"
+    },
+    "first" : {
+      "@id" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#first",
+      "@type" : "@id"
+    },
+    "minCardinality" : {
+      "@id" : "http://www.w3.org/2002/07/owl#minCardinality",
+      "@type" : "http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+    },
+    "hasKey" : {
+      "@id" : "http://www.w3.org/2002/07/owl#hasKey",
+      "@type" : "@id"
+    },
+    "gdm" : "http://proven.pnnl.gov/gridappsd-message#",
+    "rdf" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "owl" : "http://www.w3.org/2002/07/owl#",
+    "xsd" : "http://www.w3.org/2001/XMLSchema#",
+    "rdfs" : "http://www.w3.org/2000/01/rdf-schema#"
+  }
+}

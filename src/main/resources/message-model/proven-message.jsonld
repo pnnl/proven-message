@@ -1,0 +1,252 @@
+{
+  "@graph" : [ {
+    "@id" : "_:b0",
+    "@type" : "owl:Restriction",
+    "cardinality" : "1",
+    "onProperty" : "http://proven.pnl.gov/proven#hasDomain"
+  }, {
+    "@id" : "_:b1",
+    "@type" : "owl:Restriction",
+    "cardinality" : "1",
+    "onProperty" : "pm:hasTimestamp"
+  }, {
+    "@id" : "_:b10",
+    "@type" : "owl:Restriction",
+    "cardinality" : "1",
+    "onProperty" : "http://proven.pnl.gov/proven#hasDomain"
+  }, {
+    "@id" : "_:b11",
+    "@type" : "owl:Restriction",
+    "maxCardinality" : "1",
+    "onProperty" : "pm:hasTimestamp"
+  }, {
+    "@id" : "_:b2",
+    "@type" : "owl:Restriction",
+    "cardinality" : "1",
+    "onProperty" : "http://proven.pnl.gov/proven#hasName"
+  }, {
+    "@id" : "_:b3",
+    "@type" : "owl:Restriction",
+    "maxCardinality" : "1",
+    "onProperty" : "pm:hasMessageContext"
+  }, {
+    "@id" : "_:b4",
+    "@type" : "owl:Restriction",
+    "minCardinality" : "1",
+    "onProperty" : "pm:hasMeasurement"
+  }, {
+    "@id" : "_:b5",
+    "@type" : "owl:Restriction",
+    "minCardinality" : "1",
+    "onProperty" : "pm:hasValue"
+  }, {
+    "@id" : "_:b6",
+    "@type" : "owl:Restriction",
+    "maxCardinality" : "1",
+    "onProperty" : "pm:hasTimestamp"
+  }, {
+    "@id" : "_:b7",
+    "@type" : "owl:Restriction",
+    "cardinality" : "1",
+    "onProperty" : "http://proven.pnl.gov/proven#hasName"
+  }, {
+    "@id" : "_:b8",
+    "@type" : "owl:Restriction",
+    "cardinality" : "1",
+    "onProperty" : "pm:hasJsonldContext"
+  }, {
+    "@id" : "http://proven.pnl.gov/proven#hasDomain",
+    "range" : "http://proven.pnl.gov/proven#Domain"
+  }, {
+    "@id" : "http://proven.pnnl.gov/proven-message",
+    "@type" : "owl:Ontology",
+    "imports" : "http://proven.pnl.gov/proven",
+    "versionInfo" : "Created with TopBraid Composer"
+  }, {
+    "@id" : "pm:Measurement",
+    "@type" : "owl:Class",
+    "comment" : "Represents a time-series measurement containing a timestamp, field values, and meta-data tags",
+    "label" : "Measurement",
+    "subClassOf" : [ "owl:Thing", "_:b5", "_:b6" ],
+    "owl:hasKey" : {
+      "@list" : [ ]
+    }
+  }, {
+    "@id" : "pm:MeasurementMessage",
+    "@type" : "owl:Class",
+    "comment" : "Represents a message container for one or more measurements.  A  timestamp value included in a MeasurementMessage applies to all of its associated measurements.",
+    "label" : "Measurement message",
+    "subClassOf" : [ "_:b4", "owl:Thing", "_:b11" ],
+    "owl:hasKey" : {
+      "@list" : [ ]
+    }
+  }, {
+    "@id" : "pm:MessageContext",
+    "@type" : "owl:Class",
+    "comment" : "Represents the context for a ProvenMessage.",
+    "label" : "Message context",
+    "subClassOf" : [ "_:b8", "_:b10", "_:b7", "owl:Thing" ],
+    "hasKey" : {
+      "@list" : [ "http://proven.pnl.gov/proven#hasDomain", "http://proven.pnl.gov/proven#hasName" ]
+    }
+  }, {
+    "@id" : "pm:ProvenMessage",
+    "@type" : "owl:Class",
+    "comment" : "Represents a Proven message container for domain specific provenance data.",
+    "label" : "Proven message",
+    "subClassOf" : [ "_:b0", "_:b1", "owl:Thing", "_:b2", "_:b3" ],
+    "owl:hasKey" : {
+      "@list" : [ ]
+    }
+  }, {
+    "@id" : "pm:QueryFilter",
+    "@type" : "owl:Class",
+    "label" : "Query filter",
+    "subClassOf" : "owl:Thing"
+  }, {
+    "@id" : "pm:TimeSeriesField",
+    "@type" : "owl:Class",
+    "label" : "Time series value",
+    "subClassOf" : "owl:Thing"
+  }, {
+    "@id" : "pm:TimeSeriesTag",
+    "@type" : "owl:Class",
+    "label" : "Time series tag",
+    "subClassOf" : "owl:Thing"
+  }, {
+    "@id" : "pm:hasJsonldContext",
+    "@type" : "owl:DatatypeProperty",
+    "comment" : "Associates a MessageContext with a Json-ld context",
+    "domain" : "pm:MessageContext",
+    "label" : "has jsonld context",
+    "range" : "xsd:string"
+  }, {
+    "@id" : "pm:hasKeyword",
+    "@type" : "owl:DatatypeProperty",
+    "comment" : "Provides a simple string or tag value that can be associated with a ProvenMessage to facilitate searching and categorization of message data.",
+    "domain" : "pm:ProvenMessage",
+    "label" : "Has keyword",
+    "range" : "xsd:string"
+  }, {
+    "@id" : "pm:hasMeasurement",
+    "@type" : "owl:ObjectProperty",
+    "comment" : "Associates a Measurement with a MeasurementMessage container.",
+    "domain" : "pm:MeasurementMessage",
+    "label" : "Has measurement",
+    "range" : "pm:Measurement"
+  }, {
+    "@id" : "pm:hasMeasurementMessage",
+    "@type" : "owl:ObjectProperty",
+    "comment" : "Associates source concept with a MeasurementMessage.",
+    "label" : "Has measurement message",
+    "range" : "pm:MeasurementMessage"
+  }, {
+    "@id" : "pm:hasMessageContext",
+    "@type" : "owl:ObjectProperty",
+    "comment" : "Associates a MessageContext with a ProvenMessage.",
+    "domain" : "pm:ProvenMessage",
+    "label" : "Has message context",
+    "range" : "pm:MessageContext"
+  }, {
+    "@id" : "pm:hasProvenance",
+    "@type" : "owl:ObjectProperty",
+    "comment" : "Associates a ProvenMessage with its provenance data",
+    "domain" : "pm:ProvenMessage",
+    "label" : "Has provenance"
+  }, {
+    "@id" : "pm:hasQueryFilter",
+    "@type" : "owl:ObjectProperty",
+    "label" : "has query filter"
+  }, {
+    "@id" : "pm:hasQueryMeasurement",
+    "@type" : "owl:DatatypeProperty",
+    "domain" : "pm:ProvenMessage",
+    "label" : "has query measurement",
+    "range" : "xsd:string"
+  }, {
+    "@id" : "pm:hasQueryType",
+    "@type" : "owl:DatatypeProperty",
+    "domain" : "pm:ProvenMessage",
+    "label" : "has query type",
+    "range" : "xsd:string"
+  }, {
+    "@id" : "pm:hasTag",
+    "@type" : "owl:DatatypeProperty",
+    "comment" : "Associates meta-data with a Measurement.",
+    "domain" : "pm:Measurement",
+    "label" : "Measurement tag"
+  }, {
+    "@id" : "pm:hasTimestamp",
+    "@type" : "owl:DatatypeProperty",
+    "comment" : "Proven time-series timestamp values.",
+    "domain" : [ "pm:Measurement", "pm:MeasurementMessage" ],
+    "label" : "Has timestamp",
+    "range" : "xsd:dateTime"
+  }, {
+    "@id" : "pm:hasValue",
+    "@type" : "owl:DatatypeProperty",
+    "comment" : "Associates a measurement value with a Measurement.",
+    "domain" : "pm:Measurement",
+    "label" : "Measurement value"
+  } ],
+  "@context" : {
+    "onProperty" : {
+      "@id" : "http://www.w3.org/2002/07/owl#onProperty",
+      "@type" : "@id"
+    },
+    "cardinality" : {
+      "@id" : "http://www.w3.org/2002/07/owl#cardinality",
+      "@type" : "http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+    },
+    "label" : {
+      "@id" : "http://www.w3.org/2000/01/rdf-schema#label"
+    },
+    "domain" : {
+      "@id" : "http://www.w3.org/2000/01/rdf-schema#domain",
+      "@type" : "@id"
+    },
+    "comment" : {
+      "@id" : "http://www.w3.org/2000/01/rdf-schema#comment"
+    },
+    "hasKey" : {
+      "@id" : "http://www.w3.org/2002/07/owl#hasKey",
+      "@type" : "@id"
+    },
+    "subClassOf" : {
+      "@id" : "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+      "@type" : "@id"
+    },
+    "minCardinality" : {
+      "@id" : "http://www.w3.org/2002/07/owl#minCardinality",
+      "@type" : "http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+    },
+    "range" : {
+      "@id" : "http://www.w3.org/2000/01/rdf-schema#range",
+      "@type" : "@id"
+    },
+    "maxCardinality" : {
+      "@id" : "http://www.w3.org/2002/07/owl#maxCardinality",
+      "@type" : "http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+    },
+    "rest" : {
+      "@id" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest",
+      "@type" : "@id"
+    },
+    "first" : {
+      "@id" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#first",
+      "@type" : "@id"
+    },
+    "versionInfo" : {
+      "@id" : "http://www.w3.org/2002/07/owl#versionInfo"
+    },
+    "imports" : {
+      "@id" : "http://www.w3.org/2002/07/owl#imports",
+      "@type" : "@id"
+    },
+    "rdf" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "owl" : "http://www.w3.org/2002/07/owl#",
+    "xsd" : "http://www.w3.org/2001/XMLSchema#",
+    "rdfs" : "http://www.w3.org/2000/01/rdf-schema#",
+    "pm" : "http://proven.pnnl.gov/proven-message#"
+  }
+}

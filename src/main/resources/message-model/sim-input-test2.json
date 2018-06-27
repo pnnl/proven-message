@@ -1,0 +1,114 @@
+{
+  "input": {
+    "message": {
+      "timestamp": 1529008730,
+      "reverse_differences": [
+        {
+          "attribute": "ShuntCompensator.sections",
+          "object": "_A5866105-A527-F682-C982-69807C0E088B",
+          "value": 1
+        },
+        {
+          "attribute": "ShuntCompensator.sections",
+          "object": "_614B787E-649F-6FFE-EA99-9260674DA020",
+          "value": 1
+        },
+        {
+          "attribute": "ShuntCompensator.sections",
+          "object": "_55A8A692-8286-60F4-3B55-E493AB7F5C14",
+          "value": 1
+        },
+        {
+          "attribute": "ShuntCompensator.sections",
+          "object": "_A1395901-50BC-8B13-8CD6-F01B03CC8F65",
+          "value": 1
+        },
+        {
+          "attribute": "ShuntCompensator.sections",
+          "object": "_890CCB37-5678-1B5D-9A6D-DE041407F004",
+          "value": 1
+        },
+        {
+          "attribute": "ShuntCompensator.sections",
+          "object": "_D188697C-E7E2-2433-B115-B5F5066C157A",
+          "value": 1
+        },
+        {
+          "attribute": "ShuntCompensator.sections",
+          "object": "_60028107-B79F-457E-B4F9-4FCCDD4725C7",
+          "value": 1
+        },
+        {
+          "attribute": "ShuntCompensator.sections",
+          "object": "_44FBB17E-ADB8-F044-7182-7FB9F10D438C",
+          "value": 1
+        },
+        {
+          "attribute": "ShuntCompensator.sections",
+          "object": "_04B2EB15-9590-4DB2-6983-A21D7973BC07",
+          "value": 1
+        },
+        {
+          "attribute": "ShuntCompensator.sections",
+          "object": "_9EA4D055-B7EF-F289-8485-9159C1867059",
+          "value": 1
+        }
+      ],
+      "forward_differences": [
+        {
+          "attribute": "ShuntCompensator.sections",
+          "object": "_A5866105-A527-F682-C982-69807C0E088B",
+          "value": 0
+        },
+        {
+          "attribute": "ShuntCompensator.sections",
+          "object": "_614B787E-649F-6FFE-EA99-9260674DA020",
+          "value": 0
+        },
+        {
+          "attribute": "ShuntCompensator.sections",
+          "object": "_55A8A692-8286-60F4-3B55-E493AB7F5C14",
+          "value": 0
+        },
+        {
+          "attribute": "ShuntCompensator.sections",
+          "object": "_A1395901-50BC-8B13-8CD6-F01B03CC8F65",
+          "value": 0
+        },
+        {
+          "attribute": "ShuntCompensator.sections",
+          "object": "_890CCB37-5678-1B5D-9A6D-DE041407F004",
+          "value": 0
+        },
+        {
+          "attribute": "ShuntCompensator.sections",
+          "object": "_D188697C-E7E2-2433-B115-B5F5066C157A",
+          "value": 0
+        },
+        {
+          "attribute": "ShuntCompensator.sections",
+          "object": "_60028107-B79F-457E-B4F9-4FCCDD4725C7",
+          "value": 0
+        },
+        {
+          "attribute": "ShuntCompensator.sections",
+          "object": "_44FBB17E-ADB8-F044-7182-7FB9F10D438C",
+          "value": 0
+        },
+        {
+          "attribute": "ShuntCompensator.sections",
+          "object": "_04B2EB15-9590-4DB2-6983-A21D7973BC07",
+          "value": 0
+        },
+        {
+          "attribute": "ShuntCompensator.sections",
+          "object": "_9EA4D055-B7EF-F289-8485-9159C1867059",
+          "value": 0
+        }
+      ],
+      "difference_mrid": "22460a82-c4ce-4988-814b-37882b1a8630"
+    },
+    "simulation_id": "1032599227"
+  },
+  "command": "update"
+}

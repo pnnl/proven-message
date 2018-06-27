@@ -1,0 +1,103 @@
+{
+  "@graph" : [ {
+    "@id" : "_:b0",
+    "@type" : "sh:SPARQLRule",
+    "construct" : "PREFIX pm: <http://proven.pnnl.gov/proven-message#>\nCONSTRUCT {\n\n  $this rdf:type pm:Measurement .\n\n} WHERE {\n}",
+    "sh:deactivated" : false,
+    "sh:order" : 1,
+    "prefixes" : "http://proven.pnnl.gov/gridappsd-message-shapes"
+  }, {
+    "@id" : "_:b1",
+    "@type" : "sh:SPARQLRule",
+    "construct" : "PREFIX gdm: <http://proven.pnnl.gov/gridappsd-message#>\nPREFIX pm: <http://proven.pnnl.gov/proven-message#>\n\nCONSTRUCT {\n\n\t$this gdm:hasSimulationId ?typedSimulationId .\n\t$this gdm:hasMeasurementDifference ?typedMeasurementDifference .\n    $this gdm:hasMrid ?typedMrId .\n    $this gdm:hasMrid ?typedThisMrId . \n\t$this gdm:hasSimulationMessageType ?typedSimulationMessageType .\n\t$this pm:hasTimestamp ?typedMmTs .\n\n}\nWHERE {\n\n    \t\t{\n#\t\t\t\t?pm rdf:type pm:ProvenMessage .\n\t\t\t\t?pm gdm:hasSimulationId ?simulationId .\t   \n\t\t\t\tBIND (strdt(str(?simulationId), pm:TimeSeriesTag) AS ?typedSimulationId) .\n\t\t\t}\n\t\t\tUNION\n\t\t\t{\n\t\t\t\t?mm rdf:type pm:MeasurementMessage .\n\t\t\t\t?mm gdm:hasReverseDifference $this .\n\t\t\t\tBIND(strdt(\"REVERSE\", pm:TimeSeriesTag) AS ?typedMeasurementDifference) .\n\t\t\t\tBIND(strdt(\"INPUT\", pm:TimeSeriesTag) AS ?typedSimulationMessageType) .\n\t\t\t} \n\t\t\tUNION\n\t\t\t{\n\t\t\t\t?mm rdf:type pm:MeasurementMessage .\n\t\t\t\t?mm gdm:hasForwardDifference $this .\n\t\t\t\tBIND(strdt(\"FORWARD\", pm:TimeSeriesTag) AS ?typedMeasurementDifference) .\n\t\t\t\tBIND(strdt(\"INPUT\", pm:TimeSeriesTag) AS ?typedSimulationMessageType) .\n\t\t\t} \n\t\t\tUNION\n\t\t\t{\n\t\t\t\t?mm rdf:type pm:MeasurementMessage .\n\t\t\t\t?mm pm:hasMeasurement $this .\n\t\t\t\tFILTER NOT EXISTS { $this gdm:hasReverseDifference ?mrd } .\n\t\t\t\tFILTER NOT EXISTS { $this gdm:hasForwardDifference ?mfd } .\n\t\t\t\tBIND(strdt(\"OUTPUT\", pm:TimeSeriesTag) AS ?typedSimulationMessageType) .\n\t\t\t} \n\t\t\tUNION\n\t\t\t{\n\t\t\t\t?mm rdf:type pm:MeasurementMessage .\n\t\t\t\t?mm gdm:hasMrid ?mrId .\n\t\t\t\tBIND (strdt(str(?mrId), pm:TimeSeriesTag) AS ?typedMrId) .\n\t\t\t} \n\t\t\t{\n\t\t\t\t$this gdm:hasMrid ?thisMrId .\n\t\t\t\tBIND (strdt(str(?thisMrId), pm:TimeSeriesTag) AS ?typedThisMrId) .\n\t\t\t} \n\t\t\tUNION\n\t\t\t{\n\t\t\t\t?mm rdf:type pm:MeasurementMessage .\n\t\t\t\t?mm pm:hasTimestamp ?mmTs .\t\t\t\t\n\t\t\t\tFILTER NOT EXISTS { $this pm:hasTimestamp ?ts } .\n\t\t\t\tBIND (strdt(str(?mmTs), xsd:long) AS ?typedMmTs) .\n\t\t\t}\n\n}",
+    "sh:deactivated" : false,
+    "sh:order" : 0,
+    "prefixes" : "http://proven.pnnl.gov/gridappsd-message-shapes"
+  }, {
+    "@id" : "_:b2",
+    "@type" : "sh:SPARQLRule",
+    "construct" : "PREFIX pm: <http://proven.pnnl.gov/proven-message#>\n\nCONSTRUCT {\n\n  $this rdf:type pm:MeasurementMessage .\n\n} WHERE {\n}",
+    "sh:deactivated" : false,
+    "sh:order" : 0,
+    "prefixes" : "http://proven.pnnl.gov/gridappsd-message-shapes"
+  }, {
+    "@id" : "http://proven.pnnl.gov/gridappsd-message-shapes",
+    "@type" : "owl:Ontology",
+    "imports" : [ "http://datashapes.org/dash", "http://proven.pnnl.gov/gridappsd-message" ],
+    "versionInfo" : "Created with TopBraid Composer"
+  }, {
+    "@id" : "gdms:MeasurementMessageTypeShape",
+    "@type" : "sh:NodeShape",
+    "comment" : "Shape used to determine MeasurementMessage types based on the it being a target of pm:hasMeasurement properties",
+    "label" : "Measurement message type shape",
+    "order" : "100",
+    "rule" : "_:b2",
+    "targetObjectsOf" : "http://proven.pnnl.gov/proven-message#hasMeasurementMessage"
+  }, {
+    "@id" : "gdms:MeasurementTagsShape",
+    "@type" : "sh:NodeShape",
+    "comment" : "",
+    "label" : "Measurement tags shape",
+    "order" : "120",
+    "rule" : "_:b1",
+    "targetClass" : "http://proven.pnnl.gov/proven-message#Measurement"
+  }, {
+    "@id" : "gdms:MeasurementTypeShape",
+    "@type" : "sh:NodeShape",
+    "comment" : "Shape used to determine Measurent typed based on the it being a target of pm:hasMeasurement properties",
+    "label" : "Measurement type shape",
+    "order" : "110",
+    "prefixes" : "proven:http://proven.pnl.gov/proven#",
+    "rule" : "_:b0",
+    "targetObjectsOf" : [ "http://proven.pnnl.gov/proven-message#hasMeasurement", "http://proven.pnnl.gov/gridappsd-message#hasForwardDifference", "http://proven.pnnl.gov/gridappsd-message#hasReverseDifference" ]
+  } ],
+  "@context" : {
+    "targetObjectsOf" : {
+      "@id" : "http://www.w3.org/ns/shacl#targetObjectsOf",
+      "@type" : "@id"
+    },
+    "rule" : {
+      "@id" : "http://www.w3.org/ns/shacl#rule",
+      "@type" : "@id"
+    },
+    "prefixes" : {
+      "@id" : "http://www.w3.org/ns/shacl#prefixes",
+      "@type" : "@id"
+    },
+    "order" : {
+      "@id" : "http://www.w3.org/ns/shacl#order",
+      "@type" : "http://www.w3.org/2001/XMLSchema#decimal"
+    },
+    "label" : {
+      "@id" : "http://www.w3.org/2000/01/rdf-schema#label"
+    },
+    "comment" : {
+      "@id" : "http://www.w3.org/2000/01/rdf-schema#comment"
+    },
+    "construct" : {
+      "@id" : "http://www.w3.org/ns/shacl#construct"
+    },
+    "deactivated" : {
+      "@id" : "http://www.w3.org/ns/shacl#deactivated",
+      "@type" : "http://www.w3.org/2001/XMLSchema#boolean"
+    },
+    "versionInfo" : {
+      "@id" : "http://www.w3.org/2002/07/owl#versionInfo"
+    },
+    "imports" : {
+      "@id" : "http://www.w3.org/2002/07/owl#imports",
+      "@type" : "@id"
+    },
+    "targetClass" : {
+      "@id" : "http://www.w3.org/ns/shacl#targetClass",
+      "@type" : "@id"
+    },
+    "gdms" : "http://proven.pnnl.gov/gridappsd-message-shapes#",
+    "rdf" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "owl" : "http://www.w3.org/2002/07/owl#",
+    "sh" : "http://www.w3.org/ns/shacl#",
+    "xsd" : "http://www.w3.org/2001/XMLSchema#",
+    "rdfs" : "http://www.w3.org/2000/01/rdf-schema#",
+    "dash" : "http://datashapes.org/dash#"
+  }
+}

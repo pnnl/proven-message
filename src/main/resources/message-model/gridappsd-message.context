@@ -1,0 +1,37 @@
+  "@context" : {
+    "@vocab" : "http://proven.pnnl.gov/gridappsd-message#",
+    "proven" : "http://proven.pnnl.gov/proven#",
+    "gdm" : "http://proven.pnnl.gov/gridappsd-message#",
+    "pm" : "http://proven.pnnl.gov/proven-message#",
+    "simulation_id": "gdm:hasSimulationId",
+    "timestamp": {
+       "@id": "pm:hasTimestamp",
+       "@type": "xsd:long" },
+    "measurement_mrid": "gdm:hasMrid",
+    "magnitude": {
+       "@id": "gdm:hasMagnitude",
+       "@type": "pm:TimeSeriesField" },             
+    "angle": {
+       "@id": "gdm:hasAngle",
+       "@type": "pm:TimeSeriesField" },
+    "value": {
+       "@id": "pm:hasValue",
+       "@type": "pm:TimeSeriesField" },       
+    "message" : "pm:hasMeasurementMessage", 
+    "measurement": "pm:hasMeasurement",
+    "measurements": "pm:hasMeasurement",
+    "difference_mrid": "gdm:hasMrid",
+    "reverse_difference": "gdm:hasReverseDifference",      
+    "reverse_differences": "gdm:hasReverseDifference",
+    "forward_difference": "gdm:hasForwardDifference",
+    "forward_differences": "gdm:hasForwardDifference",
+    "object": {
+       "@id": "gdm:hasObject",
+       "@type": "pm:TimeSeriesTag" },    
+    "attribute": {
+       "@id": "gdm:hasDifferenceAttribute",
+       "@type": "pm:TimeSeriesTag" },
+    "queryType": "pm:hasQueryType",
+    "queryMeasurement": "pm:hasQueryMeasurement",
+    "queryFilter": "pm:hasQueryFilter"    
+  },

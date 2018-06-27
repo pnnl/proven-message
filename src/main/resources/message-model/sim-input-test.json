@@ -1,0 +1,15 @@
+{
+  "simulation_id": "12ae2345",
+  "message": {
+    "timestamp": 1529008730,
+    "difference_mrid": "123a456b-789c-012d-345e-678f901a234b",
+    "reverse_difference": {
+      "attribute": "Switch.open",
+      "value": "0"
+    },
+    "forward_difference": {
+      "attribute": "Switch.open",
+      "value": "1"
+    }
+  }
+}

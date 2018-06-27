@@ -1,0 +1,10 @@
+Manifest-Version: 0.1
+Class-Path: 
+Bundle-Description: ProvEn Harvester, extracts scruffy provenance messages in HAPI format.
+Bundle-License: http://ProvenanceEnvironment/LICENSE
+Bundle-DocURL: http://ProvenanceEnvironment/
+Bundle-Vendor: Pacific Northwest National Laboratory
+Bundle-Name: ProvEn Harvester
+Bundle-Version: 0.1_SNAPSHOT
+Build-Jdk: 1.8.0_111-b14
+

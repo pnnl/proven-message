@@ -1,0 +1,66 @@
+{
+  "@graph" : [ {
+    "@id" : "_:b0",
+    "@type" : "sh:SPARQLRule",
+    "construct" : "PREFIX pm: <http://proven.pnnl.gov/proven-message#>\nCONSTRUCT {\n\n  $this rdf:type pm:QueryFilter .\n\n} WHERE {\n}",
+    "sh:order" : 0,
+    "prefixes" : "http://proven.pnnl.gov/proven-message-shapes"
+  }, {
+    "@id" : "http://proven.pnnl.gov/proven-message-shapes",
+    "@type" : "owl:Ontology",
+    "imports" : [ "http://proven.pnnl.gov/proven-message", "http://datashapes.org/dash" ],
+    "versionInfo" : "Created with TopBraid Composer"
+  }, {
+    "@id" : "pms:QueryFilterTypeShape",
+    "@type" : "sh:NodeShape",
+    "comment" : "Shape used to determine Query Filter type based on the it being a target of pm:hasQueryFilter property",
+    "label" : "Query filter type shape",
+    "sh:order" : {
+      "@type" : "xsd:decimal",
+      "@value" : "1"
+    },
+    "rule" : "_:b0",
+    "targetObjectsOf" : "http://proven.pnnl.gov/proven-message#hasQueryFilter"
+  } ],
+  "@context" : {
+    "construct" : {
+      "@id" : "http://www.w3.org/ns/shacl#construct"
+    },
+    "prefixes" : {
+      "@id" : "http://www.w3.org/ns/shacl#prefixes",
+      "@type" : "@id"
+    },
+    "order" : {
+      "@id" : "http://www.w3.org/ns/shacl#order",
+      "@type" : "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    "rule" : {
+      "@id" : "http://www.w3.org/ns/shacl#rule",
+      "@type" : "@id"
+    },
+    "targetObjectsOf" : {
+      "@id" : "http://www.w3.org/ns/shacl#targetObjectsOf",
+      "@type" : "@id"
+    },
+    "comment" : {
+      "@id" : "http://www.w3.org/2000/01/rdf-schema#comment"
+    },
+    "label" : {
+      "@id" : "http://www.w3.org/2000/01/rdf-schema#label"
+    },
+    "imports" : {
+      "@id" : "http://www.w3.org/2002/07/owl#imports",
+      "@type" : "@id"
+    },
+    "versionInfo" : {
+      "@id" : "http://www.w3.org/2002/07/owl#versionInfo"
+    },
+    "rdf" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "owl" : "http://www.w3.org/2002/07/owl#",
+    "sh" : "http://www.w3.org/ns/shacl#",
+    "pms" : "http://proven.pnnl.gov/proven-message-shapes#",
+    "xsd" : "http://www.w3.org/2001/XMLSchema#",
+    "rdfs" : "http://www.w3.org/2000/01/rdf-schema#",
+    "dash" : "http://datashapes.org/dash#"
+  }
+}

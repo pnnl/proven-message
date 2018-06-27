@@ -1,0 +1,77 @@
+{
+  "@graph" : [ {
+    "@id" : "_:b1",
+    "@type" : "owl:Restriction",
+    "cardinality" : "1",
+    "onProperty" : "proven:hasName"
+  }, {
+    "@id" : "http://proven.pnl.gov/proven",
+    "@type" : "owl:Ontology",
+    "versionInfo" : "Created with TopBraid Composer"
+  }, {
+    "@id" : "proven:Domain",
+    "@type" : "owl:Class",
+    "comment" : "Represents a Proven Domain which identifies specific graph(s) for the storage and collection of provenance data and related configuration information.  Domains are created to compartmentalize provenance data across different knowledge activities.",
+    "label" : "Domain",
+    "subClassOf" : [ "owl:Thing", "_:b1" ],
+    "hasKey" : {
+      "@list" : [ "proven:hasName" ]
+    }
+  }, {
+    "@id" : "proven:hasDomain",
+    "@type" : "owl:DatatypeProperty",
+    "comment" : "Identifies a Proven Domain.",
+    "label" : "Has domain",
+    "range" : "proven:Domain"
+  }, {
+    "@id" : "proven:hasName",
+    "@type" : "owl:DatatypeProperty",
+    "comment" : "Provides the name for a Proven concept.",
+    "label" : "Has name",
+    "range" : "xsd:string"
+  } ],
+  "@context" : {
+    "versionInfo" : {
+      "@id" : "http://www.w3.org/2002/07/owl#versionInfo"
+    },
+    "range" : {
+      "@id" : "http://www.w3.org/2000/01/rdf-schema#range",
+      "@type" : "@id"
+    },
+    "label" : {
+      "@id" : "http://www.w3.org/2000/01/rdf-schema#label"
+    },
+    "comment" : {
+      "@id" : "http://www.w3.org/2000/01/rdf-schema#comment"
+    },
+    "rest" : {
+      "@id" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest",
+      "@type" : "@id"
+    },
+    "first" : {
+      "@id" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#first",
+      "@type" : "@id"
+    },
+    "hasKey" : {
+      "@id" : "http://www.w3.org/2002/07/owl#hasKey",
+      "@type" : "@id"
+    },
+    "subClassOf" : {
+      "@id" : "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+      "@type" : "@id"
+    },
+    "onProperty" : {
+      "@id" : "http://www.w3.org/2002/07/owl#onProperty",
+      "@type" : "@id"
+    },
+    "cardinality" : {
+      "@id" : "http://www.w3.org/2002/07/owl#cardinality",
+      "@type" : "http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+    },
+    "rdf" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "owl" : "http://www.w3.org/2002/07/owl#",
+    "xsd" : "http://www.w3.org/2001/XMLSchema#",
+    "rdfs" : "http://www.w3.org/2000/01/rdf-schema#",
+    "proven" : "http://proven.pnl.gov/proven#"
+  }
+}
