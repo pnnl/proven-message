@@ -116,7 +116,7 @@ public class MessageProperties implements IdentifiedDataSerializable, Serializab
 		return disclosure;
 	}
 
-	public void setDisclosre(Long disclosure) {
+	public void setDisclosure(Long disclosure) {
 		this.disclosure = disclosure;
 	}
 
