@@ -1,0 +1,11 @@
+build
+bin
+.classpath
+.project
+.gradle
+.settings
+repos
+*.war
+.user-dict
+.DS_Store
+
