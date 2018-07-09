@@ -42,15 +42,23 @@ package gov.pnnl.proven.message;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.jena.graph.Node;
+import org.apache.jena.graph.Triple;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.hazelcast.nio.ObjectDataInput;
 import com.hazelcast.nio.ObjectDataOutput;
 import com.hazelcast.nio.serialization.IdentifiedDataSerializable;
+
+import gov.pnnl.proven.message.MessageContent.MessageContentStream;
+
+import static gov.pnnl.proven.message.MessageUtils.*;
 
 /**
  * Proven's general representation of a single time-series metric value. A
@@ -65,18 +73,17 @@ public class ProvenMetric implements IdentifiedDataSerializable, Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private static Logger log = LoggerFactory.getLogger(ProvenMetric.class);
-	
-	private String name;
+
 	private String label;
 	private String value;
 	private boolean isMetadata;
-	private MetricValueType valueType;
+	private MetricFragmentIdentifier.MetricValueType valueType;
 
 	public ProvenMetric() {
 	}
 
-	public ProvenMetric(String name, String label, String value, boolean isMetadata, MetricValueType valueType) {
-		this.name = name;
+	public ProvenMetric(String label, String value, boolean isMetadata,
+			MetricFragmentIdentifier.MetricValueType valueType) {
 		this.label = label;
 		this.value = value;
 		this.isMetadata = isMetadata;
@@ -86,17 +93,15 @@ public class ProvenMetric implements IdentifiedDataSerializable, Serializable {
 	@Override
 	public void readData(ObjectDataInput in) throws IOException {
 
-		this.name = in.readUTF();
 		this.label = in.readUTF();
 		this.value = in.readUTF();
 		this.isMetadata = in.readBoolean();
-		this.valueType = MetricValueType.valueOf(in.readUTF());
+		this.valueType = MetricFragmentIdentifier.MetricValueType.valueOf(in.readUTF());
 	}
 
 	@Override
 	public void writeData(ObjectDataOutput out) throws IOException {
 
-		out.writeUTF(this.name);
 		out.writeUTF(this.label);
 		out.writeUTF(this.value);
 		out.writeBoolean(this.isMetadata);
@@ -111,14 +116,6 @@ public class ProvenMetric implements IdentifiedDataSerializable, Serializable {
 	@Override
 	public int getId() {
 		return ProvenMessageIDSFactory.PROVEN_METRIC_TYPE;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public String getLabel() {
@@ -145,60 +142,206 @@ public class ProvenMetric implements IdentifiedDataSerializable, Serializable {
 		this.isMetadata = isMetadata;
 	}
 
-	public MetricValueType getValueType() {
+	public MetricFragmentIdentifier.MetricValueType getValueType() {
 		return valueType;
 	}
 
-	public void setValueType(MetricValueType valueType) {
+	public void setValueType(MetricFragmentIdentifier.MetricValueType valueType) {
 		this.valueType = valueType;
 	}
 
 	/**
-	 * Identifies possible types for a metric value. Based on XSD typing, these
-	 * can be simple types (e.g. string, integer, boolean, etc.) or types
-	 * specific to values originating from the API (e.g. host_name, process_id,
-	 * etc.).
+	 * A {@link ProvenMetric} builder, uses URI fragment identifier of the
+	 * metric's Value Type. Proven metric data comes from a
+	 * {@link ProvenMessage} {@link MessageContentStream} originally as semantic
+	 * data. URI fragment identifiers for the Value Type are used to provide
+	 * metric information to facilitate creation and storage into the registered
+	 * time-series store, if any.
+	 * 
+	 * TODO ALlow for external definition metric fragment identifiers
 	 * 
 	 * @author d3j766
-	 * 
+	 *
 	 */
-	public static enum MetricValueType {
+	public static class MetricFragmentIdentifier {
 
-		STRING("xsd:string"),
+		public static final String TS_TAG = "TimeSeriesTag";
+		public static final String PROVEN_TS_TAG_RES = PROVEN_MESSAGE_NS + TS_TAG;
+		public static final String TS_FIELD = "TimeSeriesField";
+		public static final String PROVEN_TS_FIELD_RES = PROVEN_MESSAGE_NS + TS_FIELD;
+		public static final String MFI_SPLIT_DELIMETER = ":";
 
-		INTEGER("xsd:integer"),
-
-		LONG("xsd:long"),
-
-		BOOLEAN("xsd:boolean"),
-
-		DATE_TIME("xsd:dateTime"),
-
-		TIMESTAMP("xsd:long"),
-
-		HOST_NAME("xsd:string"),
-
-		HOST_FQDN("xsd:string"),
-
-		APPLICATION_NAME("xsd:string"),
-
-		APPLICATION_VERSION("xsd:string"),
-
-		PROCESS_ID("xsd:integer"),
-
-		FLOAT("xsd:float"),
-
-		DOUBLE("xsd:double");
-
-		private String xsdType;
-
-		MetricValueType(String xsdType) {
-			this.xsdType = xsdType;
+		public enum MFIParam {
+			MetricType, Label, ValueType;
 		}
 
-		public String getXsdType() {
-			return this.xsdType;
+		public enum MetricType {
+
+			Field(PROVEN_TS_FIELD_RES), Tag(PROVEN_TS_TAG_RES);
+
+			String resName;
+
+			MetricType(String resName) {
+				this.resName = resName;
+			}
+
+			public String getResName() {
+				return resName;
+			}
+
 		}
+
+		public enum MetricValueType {
+			Integer, Long, Float, Double, Boolean, String, Derive;
+		}
+
+		public static boolean isProvenMetric(Triple t3) {
+
+			boolean ret = false;
+			if (null != t3) {
+				Node tObject = t3.getObject();
+				if (tObject.isLiteral()) {
+					String literalDT = tObject.getLiteralDatatypeURI();
+					if (null != literalDT) {
+						if ((literalDT.startsWith(MetricType.Field.getResName()))
+								|| (literalDT.startsWith(MetricType.Tag.getResName()))) {
+							ret = true;
+						}
+					}
+				}
+			}
+
+			return ret;
+		}
+
+		private static MetricValueType deriveValueType(String value) {
+
+			MetricValueType ret = null;
+
+			try {
+
+				Integer intValue = Integer.valueOf(value);
+				return MetricValueType.Integer;
+
+			} catch (NumberFormatException e) {
+			}
+
+			try {
+
+				Long Value = Long.valueOf(value);
+				return MetricValueType.Long;
+
+			} catch (NumberFormatException e) {
+			}
+
+			try {
+
+				Float Value = Float.valueOf(value);
+				return MetricValueType.Float;
+
+			} catch (NumberFormatException e) {
+			}
+
+			try {
+
+				Double Value = Double.valueOf(value);
+				return MetricValueType.Double;
+
+			} catch (NumberFormatException e) {
+			}
+
+			try {
+
+				Boolean Value = Boolean.valueOf(value);
+				return MetricValueType.Boolean;
+
+			} catch (NumberFormatException e) {
+			}
+
+			// If here, then default to String type
+			return MetricValueType.String;
+		}
+
+		public static ProvenMetric buildProvenMetric(Triple t3) {
+
+			ProvenMetric ret = null;
+
+			if (isProvenMetric(t3)) {
+
+				// Nodes and valueType string
+				Node tSubject = t3.getSubject();
+				Node tPredicate = t3.getPredicate();
+				Node tObject = t3.getObject();
+				String valueTypeStr = tObject.getLiteralDatatypeURI();
+				String value = tObject.getLiteral().getLexicalForm();
+
+				// Default values
+				String defLabel = tPredicate.getLocalName();
+				boolean defIsMetadata = true;
+				MetricValueType defValueType = MetricValueType.String;
+
+				// Fragment values
+				String fragLabel = null;
+				Boolean fragIsMetadata = null;
+				MetricValueType fragValueType = null;
+
+				// Get values from Fragment, if any
+				URI typeURI;
+				try {
+					typeURI = new URI(valueTypeStr);
+				} catch (URISyntaxException e) {
+					typeURI = null;
+				}
+				if (null != typeURI) {
+					String MFIStr = typeURI.getFragment();
+					String[] params = null;
+					if (null != MFIStr) {
+						int maxValues = MFIParam.values().length;
+						params = MFIStr.split(MFI_SPLIT_DELIMETER, maxValues);
+					}
+					if (null != params) {
+
+						for (int i = 0; i <= params.length - 1; i++) {
+
+							switch (MFIParam.values()[i]) {
+
+							case MetricType:
+
+								// Default is TAG meta-data. Will not be an empty string.
+								if (params[i].equals(TS_FIELD)) {
+									fragIsMetadata = false;
+								}
+								break;
+
+							case Label:
+								fragLabel = (params[i].isEmpty()) ? null : params[i];
+								break;
+
+							case ValueType:
+								if (!(params[i].isEmpty())) {
+									fragValueType = MetricValueType.valueOf(params[i]);
+									if (fragValueType == MetricValueType.Derive) {
+										fragValueType = deriveValueType(value);
+									}
+								}
+								break;
+							default:
+								break;
+							}
+						}
+					}
+
+				}
+
+				// Create new proven metric
+				ret = new ProvenMetric(((null == fragLabel) ? defLabel : fragLabel), value,
+						((null == fragIsMetadata) ? defIsMetadata : fragIsMetadata),
+						((null == fragValueType) ? defValueType : fragValueType));
+
+			}
+
+			return ret;
+		}
+
 	}
-
 }

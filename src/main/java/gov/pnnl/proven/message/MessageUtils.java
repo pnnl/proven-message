@@ -44,23 +44,16 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-
 import org.apache.jena.graph.BlankNodeId;
 import org.apache.jena.graph.Graph;
 import org.apache.jena.graph.Node;
 import org.apache.jena.graph.Triple;
-import org.apache.jena.graph.compose.MultiUnion;
-import org.apache.jena.ontology.OntModelSpec;
-import org.apache.jena.rdf.model.InfModel;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Property;
@@ -69,17 +62,12 @@ import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.ResourceFactory;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
-import org.apache.jena.reasoner.Reasoner;
-import org.apache.jena.reasoner.ReasonerRegistry;
 import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.riot.RDFLanguages;
-import org.apache.jena.sparql.expr.NodeValue;
 import org.apache.jena.util.iterator.ExtendedIterator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.topbraid.shacl.rules.RuleUtil;
-
-import gov.pnnl.proven.message.ProvenMetric.MetricValueType;
 import gov.pnnl.proven.message.exception.InvalidProvenMeasurementException;
 import gov.pnnl.proven.message.exception.InvalidProvenMessageException;
 import gov.pnnl.proven.message.exception.InvalidProvenQueryException;
@@ -101,8 +89,6 @@ public class MessageUtils {
 	public static final String PROVEN_MESSAGE_RES = PROVEN_MESSAGE_NS + "ProvenMessage";
 	public static final String PROVEN_MEASUREMENT_RES = PROVEN_MESSAGE_NS + "Measurement";
 	public static final String PROVEN_QUERY_FILTER_RES = PROVEN_MESSAGE_NS + "QueryFilter";
-	public static final String PROVEN_TS_TAG_RES = PROVEN_MESSAGE_NS + "TimeSeriesTag";
-	public static final String PROVEN_TS_FIELD_RES = PROVEN_MESSAGE_NS + "TimeSeriesField";
 	public static final String RDF_TYPE_PROP = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
 	public static final String QUERY_TYPE_PROP = PROVEN_MESSAGE_NS + "hasQueryType";
 	public static final String MESSAGE_CONTENT_PROP = PROVEN_MESSAGE_NS + "hasMessageContent";
@@ -421,28 +407,24 @@ public class MessageUtils {
 
 					if (tObject.isLiteral()) {
 
-						String literalDT = tObject.getLiteralDatatypeURI();
-
-						// TAG/FIELDS
-						if ((literalDT.equals(PROVEN_TS_TAG_RES)) || (literalDT.equals(PROVEN_TS_FIELD_RES))) {
-							String name = tPredicate.getLocalName().toString();
-							String label = tPredicate.getLocalName().toString();
-							String value = tObject.getLiteral().getLexicalForm();
-							boolean isMetadata = (literalDT.equals(PROVEN_TS_TAG_RES)) ? true : false;
-							MetricValueType valueType = ProvenMetric.MetricValueType.STRING;
-							pm.addMetric(new ProvenMetric(name, label, value, isMetadata, valueType));
+						// ProvenMetric
+						ProvenMetric metric = ProvenMetric.MetricFragmentIdentifier.buildProvenMetric(t3);
+						if (null != metric) {
+							pm.addMetric(metric);
 						}
+
 						// hasName
 						if (tPredicate.equals(nameProp.asNode())) {
 							pm.setMeasurementName(tObject.getLiteral().getLexicalForm());
 						}
+
 						// hasTimestamp (long epoch format is standard for
 						// proven messaging)
 						if (tPredicate.equals(timestampProp.asNode())) {
 							String dateStr = tObject.getLiteral().getLexicalForm();
 							pm.setTimestamp(Long.valueOf(dateStr));
-							// pm.setTimestamp(convertDateTimeStr(dateStr));
 						}
+
 					}
 				}
 			}
