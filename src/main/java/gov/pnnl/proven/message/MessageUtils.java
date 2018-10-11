@@ -94,6 +94,7 @@ public class MessageUtils {
 	public static final String MESSAGE_CONTENT_PROP = PROVEN_MESSAGE_NS + "hasMessageContent";
 	public static final String NAME_PROP = PROVEN_MESSAGE_NS + "hasName";
 	public static final String TIMESTAMP_PROP = PROVEN_MESSAGE_NS + "hasTimestamp";
+	public static final String QUERY_MEASUREMENT_PROP = PROVEN_MESSAGE_NS +  "hasQueryMeasurement";
 	public static final String DATE_FORMAT_1 = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
 	public static final String DATE_FORMAT_2 = "yyyy-MM-dd' 'HH:mm:ss.SSSSSS";
 	public static final String DEFAULT_MEASUREMENT = "PROVEN_MEASUREMENT";
@@ -105,6 +106,7 @@ public class MessageUtils {
 	public static final Property messageContentProp = ResourceFactory.createProperty(MESSAGE_CONTENT_PROP);
 	public static final Property nameProp = ResourceFactory.createProperty(NAME_PROP);
 	public static final Property timestampProp = ResourceFactory.createProperty(TIMESTAMP_PROP);
+	public static final Property queryMeasurementProp = ResourceFactory.createProperty(QUERY_MEASUREMENT_PROP);
 
 	private final static MessageModel messageModel = MessageModel.getInstance();
 
@@ -479,6 +481,15 @@ public class MessageUtils {
 			URI provenMessage = getProvenMessage(modelGraph);
 			tsq.setProvenMessage(provenMessage);
 
+			
+			// Get measurement name
+			URI measUri = null;
+			ExtendedIterator<Triple> measIter = 
+					modelGraph.find(Node.ANY,queryMeasurementProp.asNode(), Node.ANY);
+			while (measIter.hasNext()) {
+                tsq.setMeasurementName(measIter.next().getObject().getLiteral().getLexicalForm());
+			}
+			
 			// Get Query Filter object, assumption is a single Query Filter
 			// object with one or more Query Filter properties.
 			URI pqfUri = null;
