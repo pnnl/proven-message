@@ -1,11 +1,10 @@
 {
-  "queryMeasurement": "simulation",
-  "queryType": "time-series", 
+  "queryMeasurement": "weather",
+  "queryType": "time-series",
   "queryFilter": {
-    "hasSimulationId": "12ae2345",
-    "hasSimulationMessageType": "INPUT",
-    "hasMrid": "123a456b-789c-012d-345e-678f901a234b",
-    "startTime": "1530628300",
-    "endTime": "1530628350"
+    "startTime": "1530628494000000",
+    "endTime": "1530628495000000"
   }
 }
+
+

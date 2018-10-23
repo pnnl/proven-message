@@ -1,8 +1,6 @@
-{
-  "queryMeasurement": "simulation",
-  "queryType": "time-series", 
-  "queryFilter": {
-    "hasSimulationId": "12ae2345",
-    "startTime": 1529008731
-  }
-}
+{"queryMeasurement":"weather",
+ "queryFilter":{"startTime": "1530628494000000",
+                "endTime": "1530628495000000"},
+ "responseFormat":"JSON",
+ "queryType":"time-series"}
+ 
