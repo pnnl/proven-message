@@ -18,8 +18,8 @@ jar {
 	'Bundle-SymbolicName': 'proven-message',
 	'Bundle-Version': '0.3',
 	'Created-By': '1.8.0_161 (Oracle Corporation)',
-	'Export-Package': 'gov.pnnl.proven.message;version="0.1";uses:="gov.pnnl.proven.message.exception,javax.ws.rs.core,javax.xml.bind.annotation,javax.xml.bind.annotation.adapters,org.apache.jena.rdf.model",gov.pnnl.proven.message.exception;version="0.1"',
-	'Import-Package': 'gov.pnnl.proven.message.exception;version="[0.1,1)",javax.ws.rs.core;version="[2.0,3)",javax.xml.bind.annotation,javax.xml.bind.annotation.adapters,org.apache.commons.io;version="[1.4,2)",org.apache.jena.graph;version="[3.0,4)",org.apache.jena.graph.compose;version="[3.0,4)",org.apache.jena.graph.impl;version="[3.0,4)",org.apache.jena.rdf.model;version="[3.0,4)",org.apache.jena.riot;version="[3.0,4)",org.apache.jena.util.iterator;version="[3.0,4)",org.slf4j;version="[1.6,2)",org.topbraid.shacl.rules,org.topbraid.shacl.util,org.topbraid.spin.progress',
+	'Export-Package': 'gov.pnnl.proven.message;version="0.";uses:="gov.pnnl.proven.message.exception,javax.ws.rs.core,javax.xml.bind.annotation,javax.xml.bind.annotation.adapters,org.apache.jena.rdf.model",gov.pnnl.proven.message.exception;version="0.1"',
+	'Import-Package': 'gov.pnnl.proven.message.exception;version="[0.1,1)",javax.ws.rs.core;version="[2.0,3)",javax.xml.bind.annotation,javax.xml.bind.annotation.adapters,org.apache.commons.io;version="[1.4,2)",org.apache.jena.graph;version="[3.0,4)",org.apache.jena.graph.compose;version="[3.0,4)",org.apache.jena.graph.impl;version="[3.0,4)",org.apache.jena.rdf.model;version="[3.0,4)",org.apache.jena.riot;version="[3.0,4)",org.apache.jena.util.iterator;version="[3.0,4)",org.slf4j;version="[1.6,2)",org.topbraid.shacl.rules,org.topbraid.shacl.util,org.topbraid.spin.progress,com.hazelcast.nio;version="3.9.3",com.hazelcast.nio.serialization;version="3.9.3"',
 	'Require-Capability': 'osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.8))"',
 	'Tool': 'Bnd-3.5.0.201709291849')
    }
