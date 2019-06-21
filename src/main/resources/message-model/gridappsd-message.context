@@ -8,20 +8,20 @@
     "timestamp": {
        "@id": "pm:hasTimestamp",
        "@type": "xsd:long" },
-    "measurement_mrid": "gdm:hasMrid",
+    "measurement_mrid": "gdm:measurement_mrid",
     "magnitude": {
-       "@id": "gdm:hasMagnitude",
-       "@type": "pm:TimeSeriesField::Float" },             
+       "@id": "gdm:magnitude",
+       "@type": "pm:TimeSeriesField::Double" },             
     "angle": {
-       "@id": "gdm:hasAngle",
-       "@type": "pm:TimeSeriesField::Float" },
+       "@id": "gdm:angle",
+       "@type": "pm:TimeSeriesField::Double" },
     "value": {
-       "@id": "pm:hasValue",
+       "@id": "pm:value",
        "@type": "pm:TimeSeriesField::Derive" },     
     "message" : "pm:hasMeasurementMessage", 
     "measurement": "pm:hasMeasurement",
     "measurements": "pm:hasMeasurement",
-    "difference_mrid": "gdm:hasMrid",
+    "difference_mrid": "gdm:difference_mrid",
     "reverse_difference": "gdm:hasReverseDifference",      
     "reverse_differences": "gdm:hasReverseDifference",
     "forward_difference": "gdm:hasForwardDifference",
