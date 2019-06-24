@@ -5,6 +5,7 @@
     "pm" : "http://proven.pnnl.gov/proven-message#",
   
     "simulation_id": "gdm:simulation_id",
+    "instance_id": "gdm:instance_id",
     "timestamp": {
        "@id": "pm:hasTimestamp",
        "@type": "xsd:long" },
