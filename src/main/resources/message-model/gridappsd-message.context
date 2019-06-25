@@ -28,10 +28,10 @@
     "forward_difference": "gdm:hasForwardDifference",
     "forward_differences": "gdm:hasForwardDifference",
     "object": {
-       "@id": "gdm:hasObject",
+       "@id": "gdm:object",
        "@type": "pm:TimeSeriesTag::String" },    
     "attribute": {
-       "@id": "gdm:hasDifferenceAttribute",
+       "@id": "gdm:attribute",
        "@type": "pm:TimeSeriesTag::String" },
     "queryType": "pm:hasQueryType",
     "queryMeasurement": "pm:hasQueryMeasurement",
