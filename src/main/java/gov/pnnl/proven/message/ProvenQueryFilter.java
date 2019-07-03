@@ -75,13 +75,18 @@ public class ProvenQueryFilter implements IdentifiedDataSerializable, Serializab
 	 * Identifies filter comparison value.
 	 */
 	private String value;
+	/**
+	 * Identifies filter datatype.
+	 */
+	private String datatype;
 
 	public ProvenQueryFilter() {
 	}
 
-	public ProvenQueryFilter(String field, String value) {
+	public ProvenQueryFilter(String field, String value, String datatype) {
 		this.field = field;
 		this.value = value;
+		this.datatype = datatype;
 	}
 
 	@Override
@@ -89,6 +94,7 @@ public class ProvenQueryFilter implements IdentifiedDataSerializable, Serializab
 
 		this.field = in.readUTF();
 		this.value = in.readUTF();
+		this.datatype = in.readUTF();
 	}
 
 	@Override
@@ -96,6 +102,7 @@ public class ProvenQueryFilter implements IdentifiedDataSerializable, Serializab
 
 		out.writeUTF(this.field);
 		out.writeUTF(this.value);
+		out.writeUTF(this.datatype);
 	}
 
 	@Override
@@ -116,6 +123,10 @@ public class ProvenQueryFilter implements IdentifiedDataSerializable, Serializab
 	public String getValue() {
 		return value;
 	}
+	
+	public String getDatatype() {
+		return datatype;
+	}
 
 	public void setField(String field) {
 		this.field = field;
@@ -123,6 +134,10 @@ public class ProvenQueryFilter implements IdentifiedDataSerializable, Serializab
 
 	public void setValue(String value) {
 		this.value = value;
+	}
+	
+	public void setDatatype(String datatype) {
+		this.datatype = datatype;
 	}
 
 }

@@ -518,10 +518,18 @@ public class MessageUtils {
 					if (tObject.isLiteral()) {
 
 						String field = tPredicate.getLocalName().toString();
+						String tObjectDatatype = tObject.getLiteralDatatype().getURI();
+						String datatype;
+						if(tObjectDatatype.contains("::")) {
+							datatype = tObjectDatatype.split("::")[1];
+						}
+						else
+							datatype = tObjectDatatype.split("#")[1];
 						String value = tObject.getLiteral().getLexicalForm();
 						ProvenQueryFilter pqf = new ProvenQueryFilter();
 						pqf.setField(field);
 						pqf.setValue(value);
+						pqf.setDatatype(datatype);
 						tsq.addFilter(pqf);
 
 					}
