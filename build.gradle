@@ -4,21 +4,21 @@
  
   
  sourceCompatibility = 1.8
- version = '0.4'
+ version = '0.5'
   
 jar {
   manifest {
    attributes ( 
 	'Implementation-Title': 'Proven Messaging',
-	'Implementation-Version': '0.4',
+	'Implementation-Version': '0.5',
 	'Manifest-Version': '1.0',
 	'Bnd-LastModified': '1524642062158',
 	'Bundle-ManifestVersion': '2',
 	'Bundle-Name': 'proven-message',
 	'Bundle-SymbolicName': 'proven-message',
-	'Bundle-Version': '0.4',
+	'Bundle-Version': '0.5',
 	'Created-By': '1.8.0_161 (Oracle Corporation)',
-	'Export-Package': 'gov.pnnl.proven.message;version="0.4";uses:="gov.pnnl.proven.message.exception,javax.ws.rs.core,javax.xml.bind.annotation,javax.xml.bind.annotation.adapters,org.apache.jena.rdf.model",gov.pnnl.proven.message.exception;version="0.4"',
+	'Export-Package': 'gov.pnnl.proven.message;version="0.5";uses:="gov.pnnl.proven.message.exception,javax.ws.rs.core,javax.xml.bind.annotation,javax.xml.bind.annotation.adapters,org.apache.jena.rdf.model",gov.pnnl.proven.message.exception;version="0.5"',
 	'Import-Package': 'gov.pnnl.proven.message.exception;version="[0.1,1)",javax.ws.rs.core;version="[2.0,3)",javax.xml.bind.annotation,javax.xml.bind.annotation.adapters,org.apache.commons.io;version="[1.4,2)",org.apache.jena.graph;version="[3.0,4)",org.apache.jena.graph.compose;version="[3.0,4)",org.apache.jena.graph.impl;version="[3.0,4)",org.apache.jena.rdf.model;version="[3.0,4)",org.apache.jena.riot;version="[3.0,4)",org.apache.jena.util.iterator;version="[3.0,4)",org.slf4j;version="[1.6,2)",org.topbraid.shacl.rules,org.topbraid.shacl.util,org.topbraid.spin.progress,com.hazelcast.nio;version="3.9.3",com.hazelcast.nio.serialization;version="3.9.3"',
 	'Require-Capability': 'osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.8))"',
 	'Tool': 'Bnd-3.5.0.201709291849')
@@ -66,9 +66,9 @@ task allInOneJar(type: Jar) {
  }
  
  dependencies {
- 	 compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.10.0'
-	 compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.10.0'
-	 compile group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: '2.10.0'
+ 	 compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.17.1'
+	 compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.17.1'
+	 compile group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: '2.17.1'
 	 compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
 	 compile group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.0'
 	 compile group: 'org.topbraid', name: 'shacl', version: '1.1.0'
